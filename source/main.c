@@ -107,13 +107,12 @@ void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int Srcx, int Srcy, int 
 
 void draw_rectangle(int positionX, int positionY, int tailleX, int tailleY)
 {
-    SDL_Surface *ecran = SDL_GetWindowSurface(window);
     SDL_Rect Pos ;
     Pos.x = positionX;
     Pos.y = positionY;
     Pos.w = tailleX;
     Pos.h = tailleY;
-    SDL_FillRect(ecran, &Pos, SDL_MapRGB(ecran->format, 255, 255, 255));
+    SDL_RenderDrawRect(renderer, &Pos);
 }
 
 //TOUCH
@@ -889,7 +888,7 @@ int main()
 
 	// Create an SDL window & renderer
 	window = SDL_CreateWindow("Main-Window", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP);
-    	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
 	//BG
 	surface = IMG_Load("romfs:/resources/BG_BOTTOM_MENU.png");
