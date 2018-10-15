@@ -29,7 +29,7 @@ include $(DEVKITPRO)/libnx/switch_rules
 #     - icon.jpg
 #     - <libnx folder>/default_icon.jpg
 #---------------------------------------------------------------------------------
-TARGET	:= Minesweeper_NX
+TARGET		:= Minesweeper_NX
 BUILD		:= build
 SOURCES	:= source
 DATA		:= data
