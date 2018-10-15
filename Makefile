@@ -29,9 +29,9 @@ include $(DEVKITPRO)/libnx/switch_rules
 #     - icon.jpg
 #     - <libnx folder>/default_icon.jpg
 #---------------------------------------------------------------------------------
-TARGET		:= Minesweeper_NX
+TARGET	:= Minesweeper_NX
 BUILD		:= build
-SOURCES		:= source
+SOURCES	:= source
 DATA		:= data
 INCLUDES	:= include
 EXEFS_SRC	:= exefs_src
