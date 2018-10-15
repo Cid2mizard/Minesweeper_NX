@@ -29,17 +29,17 @@ include $(DEVKITPRO)/libnx/switch_rules
 #     - icon.jpg
 #     - <libnx folder>/default_icon.jpg
 #---------------------------------------------------------------------------------
-TARGET		  := Minesweeper_NX
-BUILD		  := build
-SOURCES		  := source
-DATA		  := data
-INCLUDES	  := include
-EXEFS_SRC	  := exefs_src
-ROMFS         := romfs
-APP_TITLE     := Minesweeper NX
-APP_AUTHOR    := cid2mizard
-APP_VERSION   := 1.1
-ICON 		:= romfs/resources/icon.jpg
+TARGET		:= Minesweeper_NX
+BUILD		:= build
+SOURCES		:= source
+DATA		:= data
+INCLUDES	:= include
+EXEFS_SRC	:= exefs_src
+ROMFS		:= romfs
+APP_TITLE	:= Minesweeper NX
+APP_AUTHOR	:= cid2mizard
+APP_VERSION	:= 1.1
+ICON		:= romfs/resources/icon.jpg
 
 #---------------------------------------------------------------------------------
 # options for code generation
@@ -56,11 +56,11 @@ CXXFLAGS	:= $(CFLAGS) -fno-rtti -fno-exceptions -std=gnu++11
 ASFLAGS	:=	-g $(ARCH)
 LDFLAGS	=	-specs=$(DEVKITPRO)/libnx/switch.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map)
 
-LIBS	:=  -lSDL2_ttf -lSDL2_image -lSDL2_mixer -lSDL2 \
-			-lpng -lz -ljpeg \
-			-lglad -lEGL -lglapi -ldrm_nouveau -lstdc++ \
-			-lvorbisidec -logg -lmpg123 -lmodplug \
-			-lnx -lm -lfreetype -lbz2
+LIBS	:=  	-lSDL2_ttf -lSDL2_image -lSDL2_mixer -lSDL2 \
+		-lpng -lz -ljpeg \
+		-lglad -lEGL -lglapi -ldrm_nouveau -lstdc++ \
+		-lvorbisidec -logg -lmpg123 -lmodplug \
+		-lnx -lm -lfreetype -lbz2
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
