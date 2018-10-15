@@ -107,12 +107,13 @@ void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int Srcx, int Srcy, int 
 
 void draw_rectangle(int positionX, int positionY, int tailleX, int tailleY)
 {
-    SDL_Rect Pos ;
-    Pos.x = positionX;
-    Pos.y = positionY;
-    Pos.w = tailleX;
-    Pos.h = tailleY;
-    SDL_RenderDrawRect(renderer, &Pos);
+	SDL_Rect Pos ;
+	Pos.x = positionX;
+	Pos.y = positionY;
+	Pos.w = tailleX;
+	Pos.h = tailleY;
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	SDL_RenderFillRect(renderer, &Pos);
 }
 
 //TOUCH
