@@ -111,6 +111,7 @@ void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int Srcx, int Srcy, int 
 
 void draw_rectangle(int positionX, int positionY, int tailleX, int tailleY)
 {
+<<<<<<< HEAD
     SDL_Rect Pos ;
     Pos.x = positionX;
     Pos.y = positionY;
@@ -118,6 +119,15 @@ void draw_rectangle(int positionX, int positionY, int tailleX, int tailleY)
     Pos.h = tailleY;
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_RenderFillRect(renderer, &Pos);
+=======
+	SDL_Rect Pos ;
+	Pos.x = positionX;
+	Pos.y = positionY;
+	Pos.w = tailleX;
+	Pos.h = tailleY;
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	SDL_RenderFillRect(renderer, &Pos);
+>>>>>>> 03f993c1df63b2877142740f32caa1a919edd2ed
 }
 
 //TOUCH
@@ -178,7 +188,7 @@ void rippleUncover(int rowClicked, int columnClicked)
 	{
 		for (column = 0; column < 3; column++)
 		{
-			if ((level_courant_cache[(rowClicked + row - 1)*MAX_TILEY + columnClicked + column - 1] == CACHER)//Zéro
+			if ((level_courant_cache[(rowClicked + row - 1)*MAX_TILEY + columnClicked + column - 1] == CACHER)//ZÃ©ro
 				&& (rowClicked + row - 1 >= 0) && (columnClicked + column - 1 >= 0)
 				&& (rowClicked + row - 1 <= MAX_TILEX-1) && (columnClicked + column - 1 <= MAX_TILEY-1))
 			{
@@ -469,7 +479,7 @@ void printGame()
 
 		//Lignes
 		Affiche_nombre(MAX_TILEY, 595, 144);
-        SDL_RenderDrawLine(renderer, 460, 212, 1280-460, 212);
+        	SDL_RenderDrawLine(renderer, 460, 212, 1280-460, 212);
 		SDL_RenderDrawLine(renderer, 460, 213, 1280-460, 213);
 		SDL_RenderDrawLine(renderer, 460, 214, 1280-460, 214);
 		SDL_RenderDrawLine(renderer, 460 + 30*(MAX_TILEY-2), 212-15, 460 + 30*(MAX_TILEY-2), 212+17);
@@ -896,7 +906,11 @@ int main()
 
 	// Create an SDL window & renderer
 	window = SDL_CreateWindow("Main-Window", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP);
+<<<<<<< HEAD
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+=======
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+>>>>>>> 03f993c1df63b2877142740f32caa1a919edd2ed
 
 	//BG
 	surface = IMG_Load("romfs:/resources/BG_BOTTOM_MENU.png");
