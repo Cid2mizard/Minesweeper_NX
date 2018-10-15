@@ -13,6 +13,7 @@
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_mixer.h>
 
+
 #define TILE_SIZEX 48
 #define TILE_SIZEY 48
 
@@ -79,6 +80,9 @@ int newselector;
 int tempsPrecedent;
 int tempsActuel;
 
+Mix_Chunk *son1;
+Mix_Chunk *son2;
+
 typedef struct 
 {
 	SDL_Texture * texture;
@@ -107,13 +111,13 @@ void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int Srcx, int Srcy, int 
 
 void draw_rectangle(int positionX, int positionY, int tailleX, int tailleY)
 {
-    SDL_Surface *ecran = SDL_GetWindowSurface(window);
     SDL_Rect Pos ;
     Pos.x = positionX;
     Pos.y = positionY;
     Pos.w = tailleX;
     Pos.h = tailleY;
-    SDL_FillRect(ecran, &Pos, SDL_MapRGB(ecran->format, 255, 255, 255));
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_RenderFillRect(renderer, &Pos);
 }
 
 //TOUCH
@@ -632,7 +636,7 @@ void manageInput()
 			}
 			if (kHeld & (KEY_L | KEY_R)) // modifier
 			{
-				timing = 5;
+				timing = 15;
 			}
 		}
 		if (kDown & KEY_X && level_courant_cache[CASE_X*MAX_TILEY + CASE_Y] == CACHER)
@@ -646,7 +650,7 @@ void manageInput()
 		{
 			timing++;
 
-			if ((timing >= 5) && (!game_over))
+			if ((timing >= 15) && (!game_over))
 			{
 				if (level_courant_cache[CASE_X*MAX_TILEY + CASE_Y] == 16)
 				{
@@ -658,9 +662,9 @@ void manageInput()
 				}
 			}
 
-			if ((kUp & KEY_TOUCH) || (kUp & KEY_A) || ((kUp & KEY_X) && timing >= 5))
+			if (((kUp & KEY_TOUCH) || (kUp & KEY_A) || (kUp & KEY_X)) && timing >= 5)
 			{
-				if (timing < 5)//Plus long et c'est le flag
+				if (timing < 15)//Plus long et c'est le flag
 				{
 					if ((cases_ouvertes == 0) && (level_courant_cache[CASE_X*MAX_TILEY + CASE_Y] == CACHER))
 					{
@@ -685,7 +689,6 @@ void manageInput()
 							for(u8 colonnes = 0; colonnes < MAX_TILEY; colonnes++)
 							{
 								update_level_courant(lignes, colonnes);
-					
 							}
 						}
 
@@ -728,7 +731,7 @@ void manageInput()
 					{
 						//On met un flag
 						level_courant_cache[CASE_X*MAX_TILEY + CASE_Y] = FLAG;
-						mines_restante--;
+						if (mines_restante > 0) mines_restante--;
 						frame = 0;
 					}
 					else if (level_courant_cache[CASE_X*MAX_TILEY + CASE_Y] == 16)
@@ -789,6 +792,7 @@ void manageInput()
 		{
 			mode_title = true;
 			mode_game = false;
+			game = false;
 		}
 	}
 	else if (mode_custom)
@@ -849,6 +853,9 @@ int main()
 
 	srand(time(0));
 
+	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024);
+	Mix_AllocateChannels(2);
+
 	highscore[0] = 999;
 	highscore[1] = 999;
 	highscore[2] = 999;
@@ -889,7 +896,7 @@ int main()
 
 	// Create an SDL window & renderer
 	window = SDL_CreateWindow("Main-Window", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP);
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
 	//BG
 	surface = IMG_Load("romfs:/resources/BG_BOTTOM_MENU.png");
@@ -942,6 +949,12 @@ int main()
 	MAX_TILEY = 2;
 	total_mines = 1;
 
+	Mix_Music *musique;
+	musique = Mix_LoadMUS("romfs:/resources/sounds/World-of-Automatons_Looping.mp3");
+	Mix_PlayMusic(musique, -1);
+
+	son1 = Mix_LoadWAV("romfs:/resources/sounds/UI_Quirky19.wav");
+
 	while (appletMainLoop())
 	{
 		hidScanInput();
@@ -961,6 +974,7 @@ int main()
 			if (tempsActuel - tempsPrecedent > 1000)
 			{
 				chrono++;
+				if (chrono > 1) Mix_PlayChannel(1, son1, 0);
 				if (chrono >= 1000) chrono = 1000;
 				tempsPrecedent = tempsActuel;
 			}
@@ -995,6 +1009,9 @@ int main()
 			fclose(save);
 		}
 	}
+
+	Mix_FreeChunk(son1);
+	Mix_CloseAudio();
 
 	SDL_Quit();				// SDL cleanup
 	return EXIT_SUCCESS; 	// Clean exit to HBMenu
