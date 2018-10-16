@@ -90,7 +90,7 @@ typedef struct
 	SDL_Rect DestR;
 } 
 images;
-images tile, background[5], sprite[2], smiley, chiffre, number;
+images tile, background[3], sprite[2], smiley, chiffre, number;
 
 void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int Srcx, int Srcy, int Destx, int Desty, int w, int h)
 {
@@ -417,7 +417,7 @@ void printGame()
 	else if (mode_game)
 	{
 		//On affiche le BG
-		SDL_RenderCopy(renderer, background[2].texture, NULL, NULL);
+		SDL_RenderCopy(renderer, background[1].texture, NULL, NULL);
 
 		//Le smiley
 		renderTexture(smiley.texture, renderer, frame*156, 0, 82, 360,  156, 156);
@@ -463,7 +463,7 @@ void printGame()
 	else if (mode_custom)
 	{
 		//On affiche le BG
-		SDL_RenderCopy(renderer, background[4].texture, NULL, NULL);
+		SDL_RenderCopy(renderer, background[2].texture, NULL, NULL);
 
 		SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
 
@@ -904,11 +904,11 @@ int main()
 	SDL_FreeSurface(surface);
 
 	surface = IMG_Load("romfs:/resources/BG_BOTTOM_GAME.png");
-	background[2].texture = SDL_CreateTextureFromSurface(renderer, surface);
+	background[1].texture = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
 
 	surface = IMG_Load("romfs:/resources/BG_BOTTOM_CUSTOM.png");
-	background[4].texture = SDL_CreateTextureFromSurface(renderer, surface);
+	background[2].texture = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
 
 	//Sprite
